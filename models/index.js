@@ -23,7 +23,7 @@ Product.belongsToMany(Tag, {
 
 // Establishes many-to-many relationship between Product and Tag through the pre-defined columns in ProductTag
 Tag.belongsToMany(Product, {
-  through: ProductTag
+  through: ProductTag,
   foreignKey: 'tag_id', 
 })
 
