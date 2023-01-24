@@ -18,14 +18,14 @@ Product.belongsTo(Category, {
 // Establishes many-to-many relationship between Product and Tag through the pre-defined columns in ProductTag
 Product.belongsToMany(Tag, {
   through: ProductTag, 
-  foreignKey: 'product_id'
-}) 
+  foreignKey: 'product_id', 
+}); 
 
 // Establishes many-to-many relationship between Product and Tag through the pre-defined columns in ProductTag
 Tag.belongsToMany(Product, {
   through: ProductTag,
   foreignKey: 'tag_id', 
-})
+});
 
 module.exports = {
   Product,

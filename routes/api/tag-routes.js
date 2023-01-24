@@ -7,11 +7,12 @@ const { Tag, Product, ProductTag } = require('../../models');
 // GET All tags
 router.get('/', async (req, res) => {
   try {
-    const allTags = await Tags.findAll({
-      include: [{ model: Product }, { model: ProductTag }], 
+    const allTags = await Tag.findAll({
+      include: [{ model: Product }], 
     }); 
     res.status(200).json(allTags)
   } catch (err) {
+    console.log(err); 
     res.status(500).json(err); 
   }
 });
@@ -20,7 +21,7 @@ router.get('/', async (req, res) => {
 // GET tag by ID
 router.get('/:id', async (req, res) => {
   try {
-    const tagData = await Tag.findByPk(req.params.id, {
+    const tagData = await Tag.findOne({ where: {id: req.params.id} }, {
       include: [{ model: Product }, { model: ProductTag }], 
     }); 
 
@@ -56,8 +57,7 @@ router.put('/:id', async (req, res) => {
     }
   ); 
 
-  // Having trouble getting the updated category to display, reflected properly in all categories list
-  return res.json(tagData)
+  return res.json( {message: "Tag updated successfully." }); 
 });
 
 
@@ -69,8 +69,7 @@ router.delete('/:id', async (req, res) => {
     },
   });
 
-  // Having trouble getting the updated category to display, reflected properly in all categories list
-  return res.json(tagData); 
+  return res.json( {message: "Tag deleted successfully." }); 
 });
 
 module.exports = router;

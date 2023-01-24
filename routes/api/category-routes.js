@@ -46,7 +46,6 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   const catData = await Category.update(
     {
-      id: req.body.id, 
       category_name: req.body.category_name
     }, 
     {
@@ -54,10 +53,11 @@ router.put('/:id', async (req, res) => {
         id: req.params.id
       },
     }
+  
   ); 
-
+  const updatedCatData = await Category.findOne({ where: {id: req.params.id} }); 
   // Having trouble getting the updated category to display, reflected properly in all categories list
-  return res.json(catData)
+  return res.json(updatedCatData)
 
 });
 
@@ -71,7 +71,8 @@ router.delete('/:id', async (req, res) => {
   });
 
   // Having trouble getting the updated category to display, reflected properly in all categories list
-  return res.json(catData); 
+  return res.json( {message: "Category deleted successfully." }); 
+
 });
 
 module.exports = router;
